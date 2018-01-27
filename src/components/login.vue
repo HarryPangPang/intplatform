@@ -11,7 +11,7 @@
     <div class="reg-username">密码</div>
     <div class="reg-in-username"><el-input v-model="user.password" placeholder="请输入内容"></el-input></div>
 
-    <div class="reg-username"> <el-button type="primary" class="register-ico" >登录</el-button></div>
+    <div class="reg-username"> <el-button type="primary" class="register-ico" @click="login()">登录</el-button></div>
 </div>
 </template>
 
@@ -27,6 +27,13 @@ export default {
     }
   },
   methods: {
+      login() {
+        this.$http.post('/api/login/getAccount', user).then((response) => {
+            if(response.data){
+                this.$router.push('/index')
+            }
+        })          
+      }
   }
 }
 </script>

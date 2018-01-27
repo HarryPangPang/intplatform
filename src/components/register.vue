@@ -32,9 +32,6 @@ export default {
   },
   methods: {
 
-      createUser(){
-
-      },
       registernew(){
         const user = {
             username: this.user.username,
@@ -51,7 +48,7 @@ export default {
                 })
                 console.log(response.data)
             }else if(response.data){
-                console.log(response)
+                this.$router.push('/index')
             }
         })
 
