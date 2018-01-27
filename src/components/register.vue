@@ -31,21 +31,30 @@ export default {
     }
   },
   methods: {
+
+      createUser(){
+
+      },
       registernew(){
         const user = {
             username: this.user.username,
             useremail:this.user.useremail,
             password:this.user.password,
         }
-
-        this.$http.get('/api/login/getAccount', user).then((response) => {
-            console.log(response)
+        this.$http.post('/api/login/getAccount', user).then((response) => {
+            
+            if(response.data == ''){
+                this.$http.post('/api/login/createAccount',user).then((response) => {
+                    if(response.status == 200 ){
+                        this.$router.push('/index')
+                    }
+                })
+                console.log(response.data)
+            }else if(response.data){
+                console.log(response)
+            }
         })
-        // this.$http.post('/api/login/createAccount',user).then((response) => {
-        //     if(response.status == 200 ){
-        //         this.$router.push('/index')
-        //     }
-        // })
+
       }
   }
 }

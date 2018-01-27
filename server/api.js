@@ -24,12 +24,19 @@ router.post('/api/login/createAccount',(req,res) => {
     });
 });
 // 获取已有账号接口
-router.get('/api/login/getAccount',(req,res) => {
-    // 通过模型去查找数据库
-    models.Login.find((err,data) => {
+router.post('/api/login/getAccount',(req,res) => {
+    // 通过模型去查找数据库o999999
+
+    // let username = req.body.username
+    // let password = req.body.password
+    let existUser = {
+    username :req.body.username,
+    password :req.body.password
+    }
+    models.Login.find(existUser,(err,data) => {
         if (err) {
             res.send(err);
-        } else {
+        } else{
             res.send(data);
         }
     });
