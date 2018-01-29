@@ -38,20 +38,11 @@ export default {
             useremail:this.user.useremail,
             password:this.user.password,
         }
-        this.$http.post('/api/login/getAccount', user).then((response) => {
-            
-            if(response.data == ''){
-                this.$http.post('/api/login/createAccount',user).then((response) => {
-                    if(response.status == 200 ){
-                        console.log(response)
-                        this.$router.push('/index')
-                    }
-                })
-                console.log(response.data)
-            }else if(response.data){
-                alert('已注册')
+        this.$http.post('/api/login/createAccount',user).then((response) => {
+            if(response.data == 200 ){
+                console.log(response)
             }
-        })
+        })        
 
       }
   }

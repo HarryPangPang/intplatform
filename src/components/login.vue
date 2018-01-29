@@ -28,10 +28,14 @@ export default {
   },
   methods: {
       login() {
+        const user = {
+            username: this.user.username,
+            password:this.user.password,
+        }
         this.$http.post('/api/login/getAccount', user).then((response) => {
-            if(response.data){
-                this.$router.push('/index')
-            }
+                if(response.data == 1) {
+                    alert('失败')
+                }
         })          
       }
   }
