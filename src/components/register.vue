@@ -39,8 +39,10 @@ export default {
             password:this.user.password,
         }
         this.$http.post('/api/login/createAccount',user).then((response) => {
-            if(response.data == 200 ){
-                console.log(response)
+            if(response.status == 200 ){
+                this.$router.push('/login')
+            }else{
+                alert('注册失败')
             }
         })        
 

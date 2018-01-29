@@ -46,7 +46,7 @@ router.post('/api/login/createAccount',(req,res) => {
 router.post('/api/login/getAccount',(req,res) => {
     // 通过模型去查找数据库
     let existUser = {
-        username :req.body.username,
+        useremail :req.body.useremail,
         password :req.body.password
     }
     models.Login.find(existUser,(err,data) => {

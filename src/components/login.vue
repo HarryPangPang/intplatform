@@ -21,7 +21,7 @@ export default {
   data () {
     return {
         user:{
-            username: '',
+            useremail: '',
             useremail:'',
         }
     }
@@ -29,12 +29,14 @@ export default {
   methods: {
       login() {
         const user = {
-            username: this.user.username,
+            useremail: this.user.useremail,
             password:this.user.password,
         }
         this.$http.post('/api/login/getAccount', user).then((response) => {
                 if(response.data == 1) {
-                    alert('失败')
+                    alert('失败');
+                }else if(response.data == 0){
+                    this.$router.push('/index')
                 }
         })          
       }
