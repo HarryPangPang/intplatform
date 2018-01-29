@@ -43,12 +43,13 @@ export default {
             if(response.data == ''){
                 this.$http.post('/api/login/createAccount',user).then((response) => {
                     if(response.status == 200 ){
+                        console.log(response)
                         this.$router.push('/index')
                     }
                 })
                 console.log(response.data)
             }else if(response.data){
-                this.$router.push('/index')
+                alert('已注册')
             }
         })
 

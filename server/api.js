@@ -14,14 +14,22 @@ router.post('/api/login/createAccount',(req,res) => {
         useremail: req.body.useremail,
         password : req.body.password
     });
-    // 保存数据newAccount数据进mongoDB
-    newAccount.save((err,data) => {
-        if (err) {
-            res.send(err);
-        } else {
-            res.send('createAccount successed');
-        }
-    });
+
+    let existUserName = {
+        username :req.body.username,
+    }
+    let existUserEmail = {
+        useremail :req.body.useremail,
+    }
+
+    let ifexistUserName = models.Login.find(existUserName).exec()
+    let ifexistUserEmail = models.Login.find(existUserEmail).exec()
+
+    Promise.all([ifexistUserName,ifexistUserEmail]).then((results) => {
+        res.send(results);
+    })
+    
+
 });
 // 获取已有账号接口
 router.post('/api/login/getAccount',(req,res) => {
