@@ -1,17 +1,13 @@
 <template>
 <div class="header-head">
-    {{int_title}}
+    <div class="header_txt">{{inttitle}}</div>
+    
 </div>
 </template>
 
 <script>
 export default {
-  name: 'palheader',
-  data () {
-    return {
-        int_title:'我的缘'
-    }
-  },
+  props:['inttitle'],
   methods: {
   }
 }
@@ -22,6 +18,12 @@ export default {
     .header-head{
         background-color: #409EFF;
         width: 100%;
-        height: 2rem;
+        height: 2.5rem;
+        color: #fff;
+        display: flex;
+          align-items:center;
+    }
+    .header_txt{
+        padding-left: .5rem;
     }
 </style>

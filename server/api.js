@@ -36,7 +36,7 @@ router.post('/api/login/createAccount',(req,res) => {
                 }
             })
         }else{
-            res.send('已存在')
+            res.send('1')
         }
     })
     
@@ -57,7 +57,7 @@ router.post('/api/login/getAccount',(req,res) => {
                 res.send('1');
             }
             else{
-                res.send('0');
+                res.send(data);
             }
         }
     });

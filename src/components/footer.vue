@@ -1,8 +1,9 @@
 <template>
 <div class="foot-head">
-    <div class="foot-content"><i class="el-icon-view"></i></div>
-    <div class="foot-content"><i class="el-icon-circle-plus-outline"></i></div>
-    <div class="foot-content"><i class="el-icon-tickets"></i></div>
+  <router-link to="/index" class="foot-content"><i class="el-icon-view"></i></router-link>
+  <router-link to="/addnote"  class="foot-content"><i class="el-icon-circle-plus-outline"></i></router-link>
+  <router-link to="/myself"  class="foot-content"><i class="el-icon-tickets"></i></router-link>
+   
 </div>
 </template>
 
@@ -27,9 +28,12 @@ export default {
       display: flex;
       position: fixed;
       width: 100%;
-      margin: .5rem 0;
+      padding: .5rem 0;
     }
     .foot-content{
       flex: 1.0;
+    }
+    .foot-content i {
+      color: #333
     }
 </style>
