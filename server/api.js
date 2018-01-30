@@ -62,6 +62,42 @@ router.post('/api/login/getAccount',(req,res) => {
         }
     });
 });
+
+router.post('./api/commet/createcommet',(req,res) => {
+
+});
+
+router.post('./api/commet/getcommet',(req,res) => {
+
+});
+
+router.post('./api/headinfo/createheadinfo',(req,res) => {
+    let userHeadInfo = new models.Login({
+        username : String,
+        useremail: String,
+        headimg : String
+    });
+});
+
+router.post('./api/headinfo/getheadinfo',(req,res) => {
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 邮箱注册
 // router.get('/api/login/sendsms',(req,res) => {
 //     let eamilTxt = {

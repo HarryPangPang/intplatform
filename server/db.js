@@ -2,21 +2,33 @@
 const mongoose = require('mongoose');
 // 连接数据库 如果不自己创建 默认test数据库会自动生成
 mongoose.connect('mongodb://localhost/27017');
-
 // 为这次连接绑定事件
-const db = mongoose.connection;
-db.once('error',() => console.log('Mongo connection error'));
-db.once('open',() => console.log('Mongo connection successed'));
+const conn = mongoose.connection;
+conn.once('error',() => console.log('Mongo connection error'));
+conn.once('open',() => console.log('Mongo connection successed'));
 /************** 定义模式loginSchema **************/
 const loginSchema = mongoose.Schema({
     username : String,
     useremail: String,
     password : String
 });
-
+const userHeadSchema = mongoose.Schema({
+    username : String,
+    useremail: String,
+    headimg : String
+});
+const userContentSchema = mongoose.Schema({
+    username : String,
+    useremail: String,
+    imgcollections : String,
+    content:String,
+    editdate: String
+});
 /************** 定义模型Model **************/
 const Models = {
-    Login : mongoose.model('Login',loginSchema)
+    Login : mongoose.model('Login',loginSchema),
+    Userhead: mongoose.model('Userhead',userHeadSchema),
+    Usercontent: mongoose.model('Usercontent',userContentSchema),
 }
 
 module.exports = Models;

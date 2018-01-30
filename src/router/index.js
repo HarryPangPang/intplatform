@@ -6,16 +6,12 @@ import register from '@/components/register'
 import index from '@/components/index'
 import myself from '@/components/myself'
 import addnote from '@/components/addnote'
+import imgupload from '@/components/imgupload'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'HelloWorld',
-    //   component: HelloWorld
-    // }
     {
       path: '/',
       name: 'welcome',
@@ -45,6 +41,11 @@ export default new Router({
       path: '/addnote',
       name: 'addnote',
       component: addnote  
+    },
+    {
+      path: '/imgupload',
+      name: 'imgupload',
+      component: imgupload  
     }
   ]
 })

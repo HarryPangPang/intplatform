@@ -29,6 +29,7 @@ export default {
       position: fixed;
       width: 100%;
       padding: .5rem 0;
+      background-color: #fff;
     }
     .foot-content{
       flex: 1.0;

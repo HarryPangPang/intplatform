@@ -41,6 +41,17 @@ export default {
   },
   methods: {
       login() {
+        // let re1='.*?';	// Non-greedy match on filler
+        // let re2='(@)';	// Any Single Character 1
+        // let re3='(Edrington\\.com)';	// Fully Qualified Domain Name 1
+        // let p = new RegExp(re1+re2+re3,["i"]);
+        // let m = p.exec(this.user.useremail);
+
+        // if(m == null ){
+        //     this.prompt = '请输入公司邮箱';
+        //     this.dialogVisible = true;
+        //     return;
+        // }
         if(this.user.username == ''){
             this.prompt = '用户名不能为空';
             this.dialogVisible = true;
@@ -61,9 +72,9 @@ export default {
                     this.dialogVisible = true;
                      return
                 }else{
-                   localStorage.setItem('userInfo' , response.data);
-                    this.$router.push('/index')
-                    console.log(response.data);
+                   let userInfo = JSON.stringify(response.data)
+                   localStorage.setItem('userInfo' , userInfo);
+                    this.$router.push('/index')                  
                 }
         })          
       }

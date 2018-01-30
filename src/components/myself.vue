@@ -1,15 +1,24 @@
 <template>
 <div class="int_myself">
-    
+    <inthead inttitle = '我的信息'></inthead>
+
+
+    <intfoot></intfoot>
 </div>
 </template>
 
 <script>
-export default {
+import inthead from './header.vue'
+import intfoot from './footer.vue'
 
+export default {
+  components :{
+      inthead,
+      intfoot,
+  },
   data () {
     return{
-      userInfo:''
+      getUserInfo:'',
     }
   },
   mounted(){
@@ -18,8 +27,8 @@ export default {
 
   methods: {
     getUserLoaclStorage(){
-      this.userInfo  = localStorage.getItem('userInfo');
-      console.log(this.userInfo);
+      this.getUserInfo = JSON.parse(localStorage.getItem('userInfo'))
+      console.log(this.getUserInfo);
     }
   }
 }

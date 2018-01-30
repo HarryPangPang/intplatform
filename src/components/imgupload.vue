@@ -1,14 +1,12 @@
 <template>
 <div class="int_myself">
-    <inthead inttitle = '分享时刻'></inthead>
+    <inthead inttitle = '我的信息'></inthead>
 
-    <!-- <el-input type="textarea" :rows="6" placeholder="请输入内容" v-model="textcommet" style="resize:none；"></el-input>
-     -->
-     <textarea></textarea>
+    <el-input type="textarea" :rows="8" placeholder="请输入内容" v-model="textcommet"></el-input>
     <div class="upload">
       <div class="upload_warp">
-        <div class="upload_warp_left" >
-          <i class="el-icon-picture addimge_icon" @click="fileClick"></i>
+        <div class="upload_warp_left" @click="fileClick">
+          <img src="/static/upload.png" >
         </div>
       </div>
       
@@ -23,7 +21,7 @@
     </div>
     </div>
     <!-- <div>
-        <i class="el-icon-picture"></i>
+        <i class="el-icon-upload"></i>
     </div> -->
     <intfoot></intfoot>
 </div>
@@ -130,11 +128,5 @@ export default {
     background-repeat: no-repeat;
     float: left;
     position: relative;
-    margin: 0 0 0 .2rem;
-}
-.addimge_icon{
-  color: #909399;
-  font-size: 1.5rem !important;
-  margin: .2rem;
 }
 </style>
