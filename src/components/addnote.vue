@@ -4,7 +4,7 @@
 
     <!-- <el-input type="textarea" :rows="6" placeholder="请输入内容" v-model="textcommet" style="resize:none；"></el-input>
      -->
-     <textarea></textarea>
+     <textarea class="texinput" rows="6"></textarea>
     <div class="upload">
       <div class="upload_warp">
         <div class="upload_warp_left" >
@@ -116,11 +116,11 @@ export default {
           fileDel(index) {
               this.size = this.size - this.imgList[index].file.size;//总大小
               this.imgList.splice(index, 1);
+              console.log(this.imgList);//上传的图片资源都在这里
           },
   }
 }
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .addimg{
@@ -136,5 +136,13 @@ export default {
   color: #909399;
   font-size: 1.5rem !important;
   margin: .2rem;
+}
+.texinput{
+  resize:none;
+  width: 100%;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom: 1px solid #E4E7ED;
 }
 </style>
