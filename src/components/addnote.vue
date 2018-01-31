@@ -4,11 +4,12 @@
 
     <!-- <el-input type="textarea" :rows="6" placeholder="请输入内容" v-model="textcommet" style="resize:none；"></el-input>
      -->
-     <textarea class="texinput" rows="6"></textarea>
+    <el-input  type="textarea"  :autosize="{ minRows: 2, maxRows: 6}"  placeholder="请输入内容"  v-model="content"></el-input>
     <div class="upload">
       <div class="upload_warp">
         <div class="upload_warp_left" >
           <i class="el-icon-picture addimge_icon" @click="fileClick"></i>
+          <i class="el-icon-upload addimge_icon" @click="uploadcommets"></i>
         </div>
       </div>
       
@@ -22,9 +23,16 @@
     
     </div>
     </div>
-    <!-- <div>
-        <i class="el-icon-picture"></i>
-    </div> -->
+    <el-dialog
+    title="提示"
+    :visible.sync="dialogVisible"
+    width="88%">
+    <span>{{prompt}}</span>
+    <span slot="footer" class="dialog-footer">
+        <!-- <el-button @click="dialogVisible = false">取 消</el-button> -->
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+    </span>
+    </el-dialog>
     <intfoot></intfoot>
 </div>
 </template>
@@ -40,10 +48,12 @@ export default {
   },
   data () {
     return{
+      dialogVisible: false,
+      prompt:'发送失败',
       getUserInfo:'',
         imgList: [],
         size: 0,
-        textcommet:'',
+        content:'',
     }
   },
 
@@ -118,15 +128,40 @@ export default {
               this.imgList.splice(index, 1);
               console.log(this.imgList);//上传的图片资源都在这里
           },
+          uploadcommets(){
+            
+            let getUserInfo = JSON.parse(localStorage.getItem('userInfo'))[0]
+            let newUserCommet = {
+              username : getUserInfo.username,
+              useremail: getUserInfo.useremail,
+              imgcollectionname : this.imgList[0].file.name,
+              imgcollectionsrc : this.imgList[0].file.src,
+              // imgcollectionsize: this.imgList.size,
+              content: this.content,
+              editdate: new Date()
+            };
+
+            // let date = new Date()
+
+            console.log(this.imgList)
+            this.$http.post('/api/commet/createcommet',newUserCommet).then((response) => {
+                if(response.data == 0 ){
+                    console.log(response);
+                }else{
+                    this.prompt = '账户已注册'
+                    this.dialogVisible = true;
+                }
+            })  
+          }
   }
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .addimg{
-    background-size: 9rem ;
+    background-size: 6.6rem ;
     width: 32%;
-    height: 7rem;
+    height: 6.5rem;
     background-repeat: no-repeat;
     float: left;
     position: relative;
@@ -136,13 +171,5 @@ export default {
   color: #909399;
   font-size: 1.5rem !important;
   margin: .2rem;
-}
-.texinput{
-  resize:none;
-  width: 100%;
-  border-left: none;
-  border-right: none;
-  border-top: none;
-  border-bottom: 1px solid #E4E7ED;
 }
 </style>

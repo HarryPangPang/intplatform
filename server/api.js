@@ -3,6 +3,8 @@
 const models = require('./db');
 const express = require('express');
 const router = express.Router();
+// 引入文件模块
+const fs = require('fs');
 // const email = require('./email')
 
 /************** 创建(create) 读取(get) 更新(update) 删除(delete) **************/
@@ -63,20 +65,52 @@ router.post('/api/login/getAccount',(req,res) => {
     });
 });
 
-router.post('./api/commet/createcommet',(req,res) => {
+// 创建消息
+router.post('/api/commet/createcommet',(req,res) => {
 
+    let imgcollectionsrc = req.body.imgcollectionsrc;
+    console.log(imgcollectionsrc)
+    let base64Data = imgcollectionsrc.replace(/^data:image\/\w+;base64,/, "");
+    let dataBuffer = new Buffer(base64Data, 'base64');
+    fs.writeFile(`imgdb/${req.body.imgcollectionname}`, dataBuffer, function(err) {
+		if(err){
+		  res.send(err);
+		}else{
+		  res.send("保存成功！");
+		}
+	});   
+    // let newUserCommet = new models.Usercontent({
+    //     username : req.body.username,
+    //     useremail: req.body.useremail,
+    //     imgcollectionname : req.body.imgcollectionname,
+    //     imgcollectionsrc : req.body.imgcollectionsrc,
+    //     imgcollectionsize: req.body.imgcollectionsize,
+    //     content: req.body.content,
+    //     editdate: req.body.editdate,
+    // });
+
+    // newUserCommet.save((err,data) => {
+    //     if(err){
+    //         res.send(err)
+    //     }
+    //     else{
+    //         res.send(data)
+    //     }
+    // });
 });
 
-router.post('./api/commet/getcommet',(req,res) => {
-
+// 获取消息
+router.post('/api/commet/getcommet',(req,res) => {
+    models.Usercontent.find((err,data) => {
+        if (err) {
+            res.send(err);
+        } else{
+             res.send(data);
+        }
+    });
 });
 
 router.post('./api/headinfo/createheadinfo',(req,res) => {
-    let userHeadInfo = new models.Login({
-        username : String,
-        useremail: String,
-        headimg : String
-    });
 });
 
 router.post('./api/headinfo/getheadinfo',(req,res) => {

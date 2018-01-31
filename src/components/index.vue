@@ -13,13 +13,26 @@ components :{
     inthead,
     intfoot
 },
+
+  created() {
+    this.getcommet();
+  },
   data () {
     return {
 
     }
   },
   methods: {
-
+    getcommet() {
+        this.$http.post('/api/commet/getcommet').then((response) => {
+            if(response.data == 0 ){
+                console.log(response);
+            }else{
+                this.prompt = '加载失败'
+                this.dialogVisible = true;
+            }
+        }) 
+    }
   }
 }
 </script>

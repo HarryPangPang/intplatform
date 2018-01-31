@@ -75,6 +75,7 @@ export default {
         }
         this.$http.post('/api/login/createAccount',this.user).then((response) => {
             if(response.data == 0 ){
+                // console.log(response);
                 this.$router.push('/login')
             }else{
                 this.prompt = '账户已注册'
