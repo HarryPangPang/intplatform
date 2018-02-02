@@ -57,7 +57,8 @@ export default {
         src:'',
       },
       alluseinfo:'',
-      newpassword:''
+      newpassword:'',
+      getUserInfo:''
     }
   },
 
@@ -133,42 +134,33 @@ export default {
             
             let newaccount = {
               username:this.getUserInfo.username,
-              useremail: this.getUserInfo.useremail,
+              useremail: this.getUserInfo[0].useremail,
               newpassword: this.newpassword,
             };
-              this.$http.post('/api/headinfo/updateheadinfo',newUserinfo).then((response) => {
-                    if(response){
-                        console.log(response)        
-                    }else {
-                        console.log('发送失败') 
+            console.log(this.getUserInfo.username)
+            console.log( JSON.parse(localStorage.getItem('userInfo'))[0].username)
+
+            // if(this.getUserInfo.username == '' || this.getUserInfo.username == undefined){}
+
+              // 修改头像
+              // this.$http.post('/api/headinfo/updateheadinfo',newUserinfo).then((response) => {
+              //       if(response){
+              //           console.log(response)        
+              //       }else {
+              //           console.log('发送失败') 
                       
-                    }
-                })
+              //       }
+              //   })
+
 
             // localStorage.removeItem('userInfo')
-            // if(this.newpassword == ''){
-            //   this.$http.post('/api/headinfo/updateheadinfo',newUserinfo).then((response) => {
-            //       if(response){
-            //           console.log(response) 
-                                  
-            //       }else {
-            //           console.log('发送失败') 
-                    
-            //       }
-            //   })
-            // } else if(this.imgList.src == null || this.imgList.src == undefined ){
-            //     this.$http.post('/api/login/updateAccount',newaccount).then((response) => {
-            //       localStorage.removeItem('userInfo')
-            //       console.log(response)
-            //       // this.$router.push('/login')
-            //     })    
+  
+                this.$http.post('/api/login/updateAccount',newaccount).then((response) => {
+                  localStorage.removeItem('userInfo')
+                  console.log(response)
+                  // this.$router.push('/login')
+                })         
 
-            // } else {
-            //     this.$http.post('/api/login/updateAccount',newaccount).then((response) => {
-            //             this.prompt = '修改成功'
-            //             this.dialogVisible = true;
-            //     })          
-            // }
 
           },
 
@@ -201,7 +193,8 @@ export default {
                         })  
                   } else{
                   this.imgList.src = JSON.parse(response.data[0].headimg).src  
-                  console.log(this.imgList.src) }                            
+                  // console.log(this.imgList.src) }  
+                  }                          
             })
 
           }
