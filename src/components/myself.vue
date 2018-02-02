@@ -18,10 +18,10 @@
     </div>
  
     <div class="userinfo_show">
-      <div>用户名：<el-input v-model="getUserInfo.username" :placeholder='getUserInfo[0].username'></el-input></div>
+      <div>用户名：<el-input v-model="getUserInfo.username" :placeholder='getUserInfo[0].username' :disabled="true"></el-input></div>
       <div>用户邮箱：<el-input v-model="getUserInfo.useremail" :placeholder='getUserInfo[0].useremail' :disabled="true"></el-input></div>
       <div>用户原密码：<el-input v-model="getUserInfo.password" :placeholder='getUserInfo[0].password' :disabled="true"></el-input></div>
-      <div>用户新密码：<el-input v-model="newpassword" :placeholder='getUserInfo.newpassword'></el-input></div>
+      <div>用户新密码：<el-input v-model="newpassword" :placeholder='getUserInfo.newpassword' :disabled="true"></el-input></div>
     </div>
 
 <!-- modal -->
@@ -154,12 +154,12 @@ export default {
 
 
             // localStorage.removeItem('userInfo')
-  
-                this.$http.post('/api/login/updateAccount',newaccount).then((response) => {
-                  localStorage.removeItem('userInfo')
-                  console.log(response)
-                  // this.$router.push('/login')
-                })         
+                // 修改用户名密码
+                // this.$http.post('/api/login/updateAccount',newaccount).then((response) => {
+                //   localStorage.removeItem('userInfo')
+                //   console.log(response)
+                //   this.$router.push('/login')
+                // })         
 
 
           },
@@ -168,6 +168,7 @@ export default {
 
           getalluseinfo(){ console.log() 
             this.getUserInfo = JSON.parse(localStorage.getItem('userInfo'))
+              console.log(this.getUserInfo);
               
             let getuseremail = {
               useremail: this.getUserInfo[0].useremail,
