@@ -173,10 +173,7 @@ router.post('/api/headinfo/createheadinfo',(req,res) => {
 });
 // 获取头像
 router.post('/api/headinfo/getheadinfo',(req,res) => {
-    let getusereamil = {
-        usereamil: req.body.useremail
-    }
-    models.Userhead.find(getusereamil,(err,data) => {
+    models.Userhead.find({ useremail: req.body.useremail},(err,data) => {
         if (err) {
             res.send(err);
         } else{

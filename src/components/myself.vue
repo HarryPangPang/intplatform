@@ -123,27 +123,42 @@ export default {
               }
           },
           uploadcommets(){
+            
+            
             let newUserinfo = {
-              username : this.getUserInfo.username,
-              useremail: this.getUserInfo.useremail,
+              username : this.getUserInfo[0].username,
+              useremail: this.getUserInfo[0].useremail,
               headimage : JSON.stringify(this.imgList),
               headimagelastModified: this.imgList.lastModified
             };
+
+            
             let newaccount = {
               username:this.getUserInfo.username,
               useremail: this.getUserInfo.useremail,
               newpassword: this.newpassword,
             };
+            // if(this.imgList.src == null || this.imgList.src == '' || this.imgList.src == undefined){
+            //  this.$http.post('/api/headinfo/createheadinfo',newUserinfo).then((response) => {
+            //       if(response){
+            //           console.log(response)
+            //           return;        
+            //       }else {
+            //           console.log('发送失败') 
+            //           return;    
+            //       }
+            //   })             
+            // } else {
+            //   this.$http.post('/api/headinfo/updateheadinfo',newUserinfo).then((response) => {
+            //         if(response){
+            //             console.log(response)        
+            //         }else {
+            //             console.log('发送失败') 
+                      
+            //         }
+            //     })
+            // }
 
-            this.$http.post('/api/headinfo/updateheadinfo',newUserinfo).then((response) => {
-                  if(response){
-                      console.log(response) 
-                                  
-                  }else {
-                      console.log('发送失败') 
-                    
-                  }
-              })
             // localStorage.removeItem('userInfo')
             // if(this.newpassword == ''){
             //   this.$http.post('/api/headinfo/updateheadinfo',newUserinfo).then((response) => {
@@ -173,16 +188,18 @@ export default {
 
 
 
-          getalluseinfo(){
+          getalluseinfo(){ console.log() 
             this.getUserInfo = JSON.parse(localStorage.getItem('userInfo'))
-              console.log(this.getUserInfo)
+              
             let getuseremail = {
               useremail: this.getUserInfo[0].useremail,
-            }
+            };
+            console.log(getuseremail)
             this.$http.post('/api/headinfo/getheadinfo',getuseremail).then((response) => {
                 if(response){
                   console.log(response)
-                  this.imgList.src = JSON.parse(response.data[0].headimg).src                 
+                  this.imgList.src = JSON.parse(response.data[0].headimg).src   
+                              
                 }else  {
                     this.prompt = '获取失败'
                     this.dialogVisible = true;
