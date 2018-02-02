@@ -9,7 +9,7 @@
     <div class="reg-in-username"><el-input v-model="user.useremail" placeholder="请输入内容"></el-input></div>
 
     <div class="reg-username">密码</div>
-    <div class="reg-in-username"><el-input v-model="user.password" placeholder="请输入内容"></el-input></div>
+    <div class="reg-in-username"><el-input type="password" v-model="user.password" placeholder="请输入内容"></el-input></div>
 
     <div class="reg-username"> <el-button type="primary" class="register-ico" @click="login()">登录</el-button></div>
     <el-dialog
@@ -33,7 +33,7 @@ export default {
     return {
         user:{
             useremail: '',
-            useremail:'',
+            password:'',
         },
         dialogVisible: false,
         prompt: '',
@@ -41,42 +41,39 @@ export default {
   },
   methods: {
       login() {
-        // let re1='.*?';	// Non-greedy match on filler
-        // let re2='(@)';	// Any Single Character 1
-        // let re3='(Edrington\\.com)';	// Fully Qualified Domain Name 1
-        // let p = new RegExp(re1+re2+re3,["i"]);
-        // let m = p.exec(this.user.useremail);
+        let re1='.*?';	// Non-greedy match on filler
+        let re2='(@)';	// Any Single Character 1
+        let re3='(Edrington\\.com)';	// Fully Qualified Domain Name 1
+        let p = new RegExp(re1+re2+re3,["i"]);
+        let m = p.exec(this.user.useremail);
 
-        // if(m == null ){
-        //     this.prompt = '请输入公司邮箱';
-        //     this.dialogVisible = true;
-        //     return;
-        // }
-        if(this.user.username == ''){
-            this.prompt = '用户名不能为空';
+        if(m == null ){ 
+            this.prompt = '请输入公司邮箱';
             this.dialogVisible = true;
-            return
-        }
-        if(this.user.password == ''){
+            return;
+        } 
+         else if(this.user.password == ''){
             this.prompt = '密码不能为空';
             this.dialogVisible = true;
-            return
-        }
-        const user = {
-            useremail: this.user.useremail,
-            password:this.user.password,
-        }
-        this.$http.post('/api/login/getAccount', user).then((response) => {
-                if(response.data == 1) {
-                    this.prompt = '登录失败';
-                    this.dialogVisible = true;
-                     return
-                }else{
-                   let userInfo = JSON.stringify(response.data)
-                   localStorage.setItem('userInfo' , userInfo);
-                    this.$router.push('/index')                  
-                }
-        })          
+            return;
+        } else {
+            const user = {
+                useremail: this.user.useremail,
+                password:this.user.password,
+            }
+            this.$http.post('/api/login/getAccount', user).then((response) => {
+                    if(response.data == 1) {
+                        this.prompt = '登录失败';
+                        this.dialogVisible = true;
+                        return
+                    }else{
+                    let userInfo = JSON.stringify(response.data)
+                    localStorage.setItem('userInfo' , userInfo);
+                    console.log(userInfo)
+                        // this.$router.push('/index')                  
+                    }
+            })    
+        }      
       }
   }
 }

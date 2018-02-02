@@ -13,7 +13,7 @@
         </div>
       </div>
       
-      <input @change="fileChange($event)" type="file" id="upload_file" multiple style="display: none"/>
+      <input @change="fileChange($event)" type="file" id="upload_file" multiple style="display: none" accept="image/gif,image/jpeg,image/png,image/jpg"/>
     
     <div v-for="(item,index) of imgList">
 
@@ -129,26 +129,35 @@ export default {
               console.log(this.imgList);//上传的图片资源都在这里
           },
           uploadcommets(){
+            let imglists = [];
+
+            for( let index =0; index<this.imgList.length; index++){
+              const newimglist = {
+                newimglistlastModified: this.imgList[index].file.lastModified,
+                newimglistsrc: this.imgList[index].file.src,
+                newimglisttype: this.imgList[index].file.type,
+              }
+
+              imglists.push(newimglist)
+            }
+
+            // console.log(imglists)
             
             let getUserInfo = JSON.parse(localStorage.getItem('userInfo'))[0]
             let newUserCommet = {
               username : getUserInfo.username,
               useremail: getUserInfo.useremail,
-              imgcollectionname : this.imgList[0].file.name,
-              imgcollectionsrc : this.imgList[0].file.src,
-              // imgcollectionsize: this.imgList.size,
+              imgcollections : JSON.stringify(imglists),
               content: this.content,
               editdate: new Date()
             };
 
-            // let date = new Date()
-
-            console.log(this.imgList)
             this.$http.post('/api/commet/createcommet',newUserCommet).then((response) => {
                 if(response.data == 0 ){
                     console.log(response);
-                }else{
-                    this.prompt = '账户已注册'
+                this.$router.push('/index')                   
+                }else if(response.data == 1 ) {
+                    this.prompt = '发送失败'
                     this.dialogVisible = true;
                 }
             })  

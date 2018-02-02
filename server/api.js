@@ -64,39 +64,67 @@ router.post('/api/login/getAccount',(req,res) => {
         }
     });
 });
+router.post('/api/login/getAccountbyemail',(req,res) => {
+    // 通过模型去查找数据库
+    let existUser = {
+        useremail :req.body.useremail,
+    }
+    models.Login.find(existUser,(err,data) => {
+        if (err) {
+            res.send(err);
+        } else{
+            res.send(data)
+        }
+    });
+});
 
+//更新账户
+router.post('/api/login/updateAccount',(req,res) => {
+
+    models.Login.update({useremail:req.body.useremail},
+    {
+        username : req.body.username,
+        password: req.body.newpassword
+    },(err) =>{
+        res.send(err)
+    }
+    )
+});
 // 创建消息
 router.post('/api/commet/createcommet',(req,res) => {
 
-    let imgcollectionsrc = req.body.imgcollectionsrc;
-    console.log(imgcollectionsrc)
-    let base64Data = imgcollectionsrc.replace(/^data:image\/\w+;base64,/, "");
-    let dataBuffer = new Buffer(base64Data, 'base64');
-    fs.writeFile(`imgdb/${req.body.imgcollectionname}`, dataBuffer, function(err) {
-		if(err){
-		  res.send(err);
-		}else{
-		  res.send("保存成功！");
-		}
-	});   
-    // let newUserCommet = new models.Usercontent({
-    //     username : req.body.username,
-    //     useremail: req.body.useremail,
-    //     imgcollectionname : req.body.imgcollectionname,
-    //     imgcollectionsrc : req.body.imgcollectionsrc,
-    //     imgcollectionsize: req.body.imgcollectionsize,
-    //     content: req.body.content,
-    //     editdate: req.body.editdate,
-    // });
+    let imgcollections = JSON.parse(req.body.imgcollections);
+    let userimglists = [];
+    imgcollections.forEach((value,i) => {
+        let base64Data = imgcollections[i].newimglistsrc.replace(/^data:image\/\w+;base64,/, "");
+        let dataBuffer = new Buffer(base64Data, 'base64');
+        let randomcode = Math.random().toString(36).substr(2);
+        userimglists.push(`${imgcollections[i].newimglistlastModified}${randomcode}.png`)
+        fs.writeFile(`imgdb/${imgcollections[i].newimglistlastModified}${randomcode}.png`, dataBuffer, function(err) {
+            if(err){
+              console.log(err);
+            }else{
+                console.log("保存成功！");
+            }
+        });  
+    });
+ 
+    let newUserCommet = new models.Usercontent({
+        username : req.body.username,
+        useremail: req.body.useremail,
+        userimglist : JSON.stringify(userimglists),
+        content: req.body.content,
+        editdate: req.body.editdate,
+    });
 
-    // newUserCommet.save((err,data) => {
-    //     if(err){
-    //         res.send(err)
-    //     }
-    //     else{
-    //         res.send(data)
-    //     }
-    // });
+    newUserCommet.save((err,data) => {
+        if(err){
+            res.send('1')
+        }
+        else{
+            res.send('0')
+        }
+    });
 });
 
 // 获取消息
@@ -110,11 +138,76 @@ router.post('/api/commet/getcommet',(req,res) => {
     });
 });
 
-router.post('./api/headinfo/createheadinfo',(req,res) => {
+
+// 创建头像
+router.post('/api/headinfo/createheadinfo',(req,res) => {
+    let headimage = JSON.parse(req.body.headimage);
+    let headimagelastModified = req.body.headimagelastModified
+    let base64Data = headimage.src.replace(/^data:image\/\w+;base64,/, "");
+    let dataBuffer = new Buffer(base64Data, 'base64');
+    console.log(typeof(headimagelastModified))
+    let randomcode = Math.random().toString(36).substr(2);
+    fs.writeFile(`imgdb/${headimagelastModified}${randomcode}.png`, dataBuffer, function(err) {
+        if(err){
+            console.log(err);
+        }else{
+            console.log("保存成功！");
+        }
+    });  
+
+    let newUserinfo = new models.Userhead({
+        username : req.body.username,
+        useremail: req.body.useremail,
+        headimageUrl:`imgdb/${headimagelastModified}${randomcode}.png`,
+        headimg : JSON.stringify(headimage)
+    });
+
+    newUserinfo.save((err,data) => {
+        if(err){
+            res.send('1')
+        }
+        else{
+            res.send(data)
+        }
+    });
 });
+// 获取头像
+router.post('/api/headinfo/getheadinfo',(req,res) => {
+    let getusereamil = {
+        usereamil: req.body.useremail
+    }
+    models.Userhead.find(getusereamil,(err,data) => {
+        if (err) {
+            res.send(err);
+        } else{
+            res.send(data)
+        }
+    });   
+});
+// 更新头像
+router.post('/api/headinfo/updateheadinfo',(req,res) => {
 
-router.post('./api/headinfo/getheadinfo',(req,res) => {
-
+    let headimage = JSON.parse(req.body.headimage);
+    let headimagelastModified = req.body.headimagelastModified
+    let base64Data = headimage.src.replace(/^data:image\/\w+;base64,/, "");
+    let dataBuffer = new Buffer(base64Data, 'base64');
+    console.log(typeof(headimagelastModified))
+    let randomcode = Math.random().toString(36).substr(2);
+    fs.writeFile(`imgdb/${headimagelastModified}${randomcode}.png`, dataBuffer, function(err) {
+        if(err){
+            console.log(err);
+        }else{
+            console.log("保存成功！");
+        }
+    });  
+    models.Userhead.update({useremail:req.body.useremail},
+    {
+        username : req.body.username,
+        useremail: req.body.useremail,
+        headimageUrl:`imgdb/${headimagelastModified}${randomcode}.png`,
+        headimg : JSON.stringify(headimage)
+    },(err) =>{}
+    )
 });
 
 

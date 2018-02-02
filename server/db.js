@@ -15,12 +15,13 @@ const loginSchema = mongoose.Schema({
 const userHeadSchema = mongoose.Schema({
     username : String,
     useremail: String,
-    headimg : String
+    headimg : String,
+    headimageUrl:String
 });
 const userContentSchema = mongoose.Schema({
     username : String,
     useremail: String,
-    imgcollections : String,
+    userimglist : String,
     content:String,
     editdate: String
 });

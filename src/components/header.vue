@@ -1,7 +1,6 @@
 <template>
 <div class="header-head">
-    <div class="header_txt">{{inttitle}}</div>
-    
+    <div class="header_txt">{{inttitle}}</div>  
 </div>
 </template>
 
