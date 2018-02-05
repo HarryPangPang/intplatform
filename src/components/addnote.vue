@@ -4,7 +4,8 @@
 
     <!-- <el-input type="textarea" :rows="6" placeholder="请输入内容" v-model="textcommet" style="resize:none；"></el-input>
      -->
-    <el-input  type="textarea"  :autosize="{ minRows: 2, maxRows: 6}"  placeholder="请输入内容"  v-model="content"></el-input>
+     <div style="     margin-top: 2.5rem;margin-bottom: 2.5rem;overflow: auto;">
+    <el-input type="textarea"  :autosize="{ minRows: 2, maxRows: 6}"  placeholder="请输入内容"  v-model="content"></el-input>
     <div class="upload">
       <div class="upload_warp">
         <div class="upload_warp_left" >
@@ -33,6 +34,7 @@
         <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
     </span>
     </el-dialog>
+    </div>
     <intfoot></intfoot>
 </div>
 </template>
@@ -141,26 +143,31 @@ export default {
               imglists.push(newimglist)
             }
 
-            // console.log(imglists)
+            console.log(imglists)
             
-            let getUserInfo = JSON.parse(localStorage.getItem('userInfo'))[0]
-            let newUserCommet = {
-              username : getUserInfo.username,
-              useremail: getUserInfo.useremail,
-              imgcollections : JSON.stringify(imglists),
-              content: this.content,
-              editdate: new Date()
-            };
+            if(imglists.length < 10) {
+                let getUserInfo = JSON.parse(localStorage.getItem('userInfo'))[0]
+                    let newUserCommet = {
+                    username : getUserInfo.username,
+                    useremail: getUserInfo.useremail,
+                    imgcollections : JSON.stringify(imglists),
+                    content: this.content,
+                    editdate: new Date()
+                    };
 
-            this.$http.post('/api/commet/createcommet',newUserCommet).then((response) => {
-                if(response.data == 0 ){
-                    console.log(response);
-                this.$router.push('/index')                   
-                }else if(response.data == 1 ) {
-                    this.prompt = '发送失败'
-                    this.dialogVisible = true;
-                }
-            })  
+                    this.$http.post('/api/commet/createcommet',newUserCommet).then((response) => {
+                        if(response.data == 0 ){
+                            console.log(response);
+                        this.$router.push('/index')                   
+                        }else if(response.data == 1 ) {
+                            this.prompt = '发送失败'
+                            this.dialogVisible = true;
+                        }
+                    })  
+            }else{
+                        this.prompt = '图片过多'
+                        this.dialogVisible = true;
+            }
           }
   }
 }

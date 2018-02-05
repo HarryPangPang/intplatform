@@ -100,7 +100,7 @@ router.post('/api/commet/createcommet',(req,res) => {
         let dataBuffer = new Buffer(base64Data, 'base64');
         let randomcode = Math.random().toString(36).substr(2);
         userimglists.push(`${imgcollections[i].newimglistlastModified}${randomcode}.png`)
-        fs.writeFile(`imgdb/${imgcollections[i].newimglistlastModified}${randomcode}.png`, dataBuffer, function(err) {
+        fs.writeFile(`../static/imgdb/${imgcollections[i].newimglistlastModified}${randomcode}.png`, dataBuffer, function(err) {
             if(err){
               console.log(err);
             }else{
@@ -147,7 +147,7 @@ router.post('/api/headinfo/createheadinfo',(req,res) => {
     let dataBuffer = new Buffer(base64Data, 'base64');
     console.log(typeof(headimagelastModified))
     let randomcode = Math.random().toString(36).substr(2);
-    fs.writeFile(`imgdb/${headimagelastModified}${randomcode}.png`, dataBuffer, function(err) {
+    fs.writeFile(`../static/imgdb/${headimagelastModified}${randomcode}.png`, dataBuffer, function(err) {
         if(err){
             console.log(err);
         }else{
@@ -158,7 +158,7 @@ router.post('/api/headinfo/createheadinfo',(req,res) => {
     let newUserinfo = new models.Userhead({
         username : req.body.username,
         useremail: req.body.useremail,
-        headimageUrl:`imgdb/${headimagelastModified}${randomcode}.png`,
+        headimageUrl:`../static/imgdb/${headimagelastModified}${randomcode}.png`,
         headimg : JSON.stringify(headimage)
     });
 
@@ -190,7 +190,7 @@ router.post('/api/headinfo/updateheadinfo',(req,res) => {
     let dataBuffer = new Buffer(base64Data, 'base64');
     console.log(typeof(headimagelastModified))
     let randomcode = Math.random().toString(36).substr(2);
-    fs.writeFile(`imgdb/${headimagelastModified}${randomcode}.png`, dataBuffer, function(err) {
+    fs.writeFile(`/static/imgdb//${headimagelastModified}${randomcode}.png`, dataBuffer, function(err) {
         if(err){
             console.log(err);
         }else{
@@ -201,7 +201,7 @@ router.post('/api/headinfo/updateheadinfo',(req,res) => {
     {
         username : req.body.username,
         useremail: req.body.useremail,
-        headimageUrl:`imgdb/${headimagelastModified}${randomcode}.png`,
+        headimageUrl:`../static/imgdb/${headimagelastModified}${randomcode}.png`,
         headimg : JSON.stringify(headimage)
     },(err) =>{}
     )

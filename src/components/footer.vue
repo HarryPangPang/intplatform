@@ -22,6 +22,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .foot-head{
+          z-index: 1000;
       text-align: center;
       font-size: 1.5rem;
       bottom: 0;

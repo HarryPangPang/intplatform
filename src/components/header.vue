@@ -20,7 +20,10 @@ export default {
         height: 2.5rem;
         color: #fff;
         display: flex;
-          align-items:center;
+        align-items:center;
+        position: fixed;
+            z-index: 1000;
+        top: 0;
     }
     .header_txt{
         padding-left: .5rem;
