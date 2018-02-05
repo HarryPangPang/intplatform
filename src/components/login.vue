@@ -69,8 +69,8 @@ export default {
                     }else{
                     let userInfo = JSON.stringify(response.data)
                     localStorage.setItem('userInfo' , userInfo);
-                    console.log(userInfo)
-                        // this.$router.push('/index')                  
+                    // console.log(userInfo)
+                        this.$router.push('/index')                  
                     }
             })    
         }      
