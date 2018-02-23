@@ -7,7 +7,7 @@ import index from '@/components/index'
 import myself from '@/components/myself'
 import addnote from '@/components/addnote'
 import imgupload from '@/components/imgupload'
-
+import test from '@/components/test'
 Vue.use(Router)
 
 export default new Router({
@@ -46,6 +46,11 @@ export default new Router({
       path: '/imgupload',
       name: 'imgupload',
       component: imgupload  
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: test  
     }
   ]
 })
